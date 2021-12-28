@@ -4,3 +4,7 @@ GET {{host}}/api
 ###
 
 GET {{host}}/api/images
+
+###
+
+GET {{host}}/api/images?filename=encenadaport&width=200&height=200
