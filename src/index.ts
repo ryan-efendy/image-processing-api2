@@ -1,9 +1,10 @@
-const addition = (a: number, b: number): number => {
-    return a + b;
-};
+import express from 'express';
+import routes from './routes';
 
-const number1: number = 5;
-const number2: number = 10;
-const result: number = addition(number1, number2);
+const app = express();
+const port = 3000;
 
-console.log('The result is %d', result);
+app.use('/api', routes);
+app.listen(port, () => {
+  console.log(`server started at http://localhost:${port}`)
+});
