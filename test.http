@@ -18,3 +18,6 @@ GET {{host}}/api/images?filename=santamonica&width=200&height=200&blur=true
 
 ###
 GET {{host}}/api/images?filename=santamonica&width=200&height=200&grayscale=true
+
+###
+GET {{host}}/api/health
