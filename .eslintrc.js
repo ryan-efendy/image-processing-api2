@@ -22,7 +22,8 @@ module.exports = {
     rules: {
         'prettier/prettier': 2,
         'node/no-unsupported-features/es-syntax': 0,
-        'node/no-missing-import': 0 // this is a bug in eslint-plugin-node
+        'node/no-missing-import': 0, // this is a bug in eslint-plugin-node
+        'import/no-named-as-default': 0
     },
     settings: {
         'import/resolver': {
