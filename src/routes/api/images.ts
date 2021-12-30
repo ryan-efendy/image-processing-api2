@@ -25,13 +25,13 @@ images.get('/', async (req: Request, res: Response) => {
         });
     }
 
-    if (await exists(path.resolve(`./src/images/thumb/${filename}_${width}x${height}.${format}`))) {
-        return res.sendFile(path.resolve(`./src/images/thumb/${filename}_${width}x${height}.${format}`));
+    if (await exists(await getPath('thumb', filename, width, height, format, blur, grayscale))) {
+        return res.sendFile(await getPath('thumb', filename, width, height, format, blur, grayscale));
     }
 
     try {
         await transformImage(filename, width, height, format, blur, grayscale);
-        return res.sendFile(path.resolve(`./src/images/thumb/${filename}_${width}x${height}.${format}`));
+        return res.sendFile(await getPath('thumb', filename, width, height, format, blur, grayscale));
     } catch (error) {
         return res.status(status('Internal Server Error') as number).json({
             message: error.message
@@ -60,7 +60,7 @@ async function transformImage(
         if (grayscale) {
             imgTransformed = imgTransformed.grayscale();
         }
-        return await imgTransformed.toFile(path.resolve(`./src/images/thumb/${filename}_${width}x${height}.${format}`));
+        return await imgTransformed.toFile(await getPath('thumb', filename, width, height, format, blur, grayscale));
     } catch (error) {
         throw new Error(error);
     }
@@ -74,4 +74,23 @@ async function exists(path: string) {
         return false;
     }
 }
+
+async function getPath(
+    root: 'thumb' | 'full',
+    filename: string,
+    width: number,
+    height: number,
+    format: string,
+    blur: boolean,
+    grayscale: boolean
+) {
+    return path.resolve(
+        `./src/images/${root}/${filename}_${width}x${height}${blur ? '_blurred' : ''}${
+            grayscale ? '_grayscaled' : ''
+        }.${format}`
+    );
+}
 export default images;
+
+// GET /api/images?filename=encenadaport&width=200&height=200&format=jpg&blur=true&grayscale=true
+// src/images/thumb/encenadaport_200x200_blurred_grayscaled.jpg
