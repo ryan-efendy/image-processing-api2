@@ -48,7 +48,7 @@ async function transformImage(
     grayscale: boolean
 ) {
     try {
-        let imgTransformed = await sharp(path.resolve(`./src/images/full/${filename}.${format}`)).resize({
+        let imgTransformed = sharp(path.resolve(`./src/images/full/${filename}.${format}`)).resize({
             width,
             height
         });
@@ -91,6 +91,3 @@ async function getPath(
     );
 }
 export default images;
-
-// GET /api/images?filename=encenadaport&width=200&height=200&format=jpg&blur=true&grayscale=true
-// src/images/thumb/encenadaport_200x200_blurred_grayscaled.jpg
