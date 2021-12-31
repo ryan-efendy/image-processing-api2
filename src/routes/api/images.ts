@@ -6,10 +6,10 @@ import status from 'statuses';
 
 const images = Router();
 images.get('/', async (req: Request, res: Response) => {
-    const filename = req.query.filename ? String(req.query.filename) : null;
+    const filename = (req.query.filename as string) ?? null;
     const width = Number(req.query.width) ?? null;
     const height = Number(req.query.height) ?? null;
-    const format = String(req.query.format ?? 'jpg');
+    const format = (req.query.format as string) ?? 'jpg';
     const blur = Boolean(req.query.blur) ?? false;
     const grayscale = Boolean(req.query.grayscale) ?? false;
 
