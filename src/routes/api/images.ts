@@ -19,13 +19,13 @@ images.get('/', async (req: Request, res: Response) => {
         });
     }
 
-    if (!(await exists(path.resolve(`./src/images/full/${filename}.${format}`)))) {
+    if (!(await isFileExist(path.resolve(`./src/images/full/${filename}.${format}`)))) {
         return res.status(status('Not Found') as number).json({
             message: `${filename}.${format} not found`
         });
     }
 
-    if (await exists(await getPath('thumb', filename, width, height, format, blur, grayscale))) {
+    if (await isFileExist(await getPath('thumb', filename, width, height, format, blur, grayscale))) {
         return res.sendFile(await getPath('thumb', filename, width, height, format, blur, grayscale));
     }
 
@@ -66,7 +66,7 @@ async function transformImage(
     }
 }
 
-async function exists(path: string) {
+async function isFileExist(path: string) {
     try {
         await fs.access(path);
         return true;
