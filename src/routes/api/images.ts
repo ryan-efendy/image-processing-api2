@@ -5,6 +5,7 @@ import sharp from 'sharp';
 import status from 'statuses';
 
 const images = Router();
+
 images.get('/', async (req: Request, res: Response) => {
     const filename = (req.query.filename as string) ?? null;
     const width = Number(req.query.width) ?? null;
@@ -90,4 +91,5 @@ async function getPath(
         }.${format}`
     );
 }
+
 export default images;
